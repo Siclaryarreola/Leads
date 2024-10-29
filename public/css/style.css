@@ -1,59 +1,133 @@
-.card-title 
-{
-    color: #199bad; /* Color del botón, aplicado al título */
+/* Fondo del body */
+
+body {
+    margin: 0;
+    background-color: #edf1f8; /* Ajusta según el diseño deseado */
 }
 
-.card 
-{
+/* Contenedor de login */
+.container {
+    max-width: 900px;
+    height: auto;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Sombra en el contenedor */
+    border-radius: 10px; /* Bordes redondeados */
+    overflow: hidden; /* Asegura que el contenido no se salga */
+}
+
+/* Personalización de la sombra para el efecto hover */
+.container:hover {
+    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada al pasar el mouse */
+}
+
+.row {
+    min-height: 60vh; /* Ajusta la altura del contenedor */
+}
+
+.card-title {
+    color: #199bad;
+}
+
+.btn-primary {
+    background-color: #199bad;
     border: none;
-    border-radius: 10px;
-    background: #ffffff; /* Fondo blanco para resaltar mejor el contenido */
 }
 
-.btn-primary 
-{
-    background-color: #199bad; /* Color del botón */
-    border: none;
-}
-
-.btn-primary:hover 
-{
-    background-color: #117a8b; /* Un tono ligeramente más oscuro para el hover */
+.btn-primary:hover {
+    background-color: #117a8b;
 }
 
 /* Estilos generales para los campos de entrada */
-.form-floating .form-control
-{
-    border: 2px solid #bfbbbb; /* Borde gris constante */
-    color: #000; /* Texto en negro para garantizar visibilidad */
-    background-color: transparent; /* Fondo transparente para los inputs */
+.form-floating .form-control {
+    border: 2px solid #bfbbbb;
+    color: #000;
+    background-color: transparent;
 }
 
-/* Estilos para los labels flotantes al estar en foco */
 .form-floating .form-control:focus ~ label,
 .form-floating .form-control:not(:placeholder-shown) ~ label,
-.form-floating .form-control:active ~ label 
-{
-    color: #199bad; /* Color para el texto del label en foco */
-    background-color: transparent; /* Hace el fondo del label transparente */
-    border-radius: 4px; /* Bordes redondeados para el label */
-    padding: 0 8px; /* Padding horizontal para el label */
-    transform: scale(0.85) translateY(-3px) translateX(0.1rem); /* Ajusta la posición y tamaño del label */
+.form-floating .form-control:active ~ label {
+    color: #199bad;
+    background-color: transparent;
+    border-radius: 4px;
+    padding: 0 8px;
+    transform: scale(0.85) translateY(-3px) translateX(0.1rem);
 }
 
-/* Mantener la transición suave en los labels */
-.form-floating label 
-{
+.form-floating label {
     transition: all 0.2s ease-in-out;
     padding-left: 8px;
     padding-right: 10px;
-    color: #000; /* Color del texto del label para garantizar visibilidad */
+    color: #000;
 }
 
-/* Ajuste del color del borde cuando el campo está en foco */
 .form-floating .form-control:focus,
-.form-floating .form-control:active
-{
-    border-color: #199bad; /* Cambia el color del borde al enfocar al color principal del tema */
-    box-shadow: 0 0 0 0.25rem rgba(25, 155, 173, 0.25); /* Sombra suave con el color del tema */
+.form-floating .form-control:active {
+    border-color: #199bad;
+    box-shadow: 0 0 0 0.25rem rgba(25, 155, 173, 0.25);
+}
+/* Fondo del body */
+body {
+    margin: 0;
+    background-color: #f0f2f5; /* Ajusta según el diseño deseado */
+}
+
+/* Contenedor de login */
+.container {
+    max-width: 900px;
+    height: auto;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Sombra en el contenedor */
+    border-radius: 10px; /* Bordes redondeados */
+    overflow: hidden; /* Asegura que el contenido no se salga */
+}
+
+/* Personalización de la sombra para el efecto hover */
+.container:hover {
+    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada al pasar el mouse */
+}
+
+.row {
+    min-height: 60vh; /* Ajusta la altura del contenedor */
+}
+
+.card-title {
+    color: #199bad;
+}
+
+.btn-primary {
+    background-color: #199bad;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #117a8b;
+}
+
+/* Estilos generales para los campos de entrada */
+.form-floating .form-control {
+    border: 2px solid #bfbbbb;
+    color: #000;
+    background-color: transparent;
+}
+
+.form-floating .form-control:focus ~ label,
+.form-floating .form-control:not(:placeholder-shown) ~ label,
+.form-floating .form-control:active ~ label {
+    color: #199bad;
+    background-color: transparent;
+    border-radius: 4px;
+    padding: 0 8px;
+    transform: scale(0.85) translateY(-3px) translateX(0.1rem);
+}
+
+.form-floating label {
+    transition: all 0.2s ease-in-out;
+    padding-left: 8px;
+    padding-right: 10px;
+    color: #000;
+}
+
+.form-floating .form-control:focus,
+.form-floating .form-control:active {
+    border-color: #199bad;
+    box-shadow: 0 0 0 0.25rem rgba(25, 155, 173, 0.25);
 }

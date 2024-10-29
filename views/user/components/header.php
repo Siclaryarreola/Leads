@@ -11,7 +11,7 @@ $user = $_SESSION['user'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Usuarios</title>
+    <title>Inicio - Usuarios</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../public/css/styleDashboard.css">
     <link rel="icon" href="../../public/images/favico.png" type="image/x-icon">
@@ -29,7 +29,7 @@ $user = $_SESSION['user'];
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item <?php echo ($activePage == 'dashboard') ? 'active' : ''; ?>">
-                    <a class="nav-link" href="dashboardUser.php">Dashboard</a>
+                    <a class="nav-link" href="dashboardUser.php">Inicio</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

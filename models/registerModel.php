@@ -16,7 +16,7 @@ class RegisterModel
         //hashea la contraseña para almacenarla en la bs
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
         //agrega el nuevo usuaro a la tabla usuarios
-        $sql = "INSERT INTO usuarios (nombre, correo, contraseña, rol) VALUES (?, ?, ?, 0)";
+        $sql = "INSERT INTO usuarios (nombre, correo, contraseña, rol, detalle_id) VALUES (?, ?, ?, 0)";
         $stmt = $this->db->prepare($sql);
         if (!$stmt)
         {

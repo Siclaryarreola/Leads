@@ -36,11 +36,11 @@ class LoginController
                 // Redirección basada en el rol del usuario
                 if ($user['rol'] == 1) 
                 {
-                    header('Location: /Portal-Ventas/views/admin/dashboardAdmin.php');//Ruta al dashboard Admin
+                    header('Location: /Portal/views/admin/dashboardAdmin.php');//Ruta al dashboard Admin
                 } 
                 else 
                 {
-                    header('Location: /Portal-Ventas/views/user/dashboardUser.php'); //Ruta al dashboard User
+                    header('Location: /Portal/views/user/dashboardUser.php'); //Ruta al dashboard User
                 }
                 exit;
             } 

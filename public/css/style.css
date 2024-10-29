@@ -1,0 +1,59 @@
+.card-title 
+{
+    color: #199bad; /* Color del botón, aplicado al título */
+}
+
+.card 
+{
+    border: none;
+    border-radius: 10px;
+    background: #ffffff; /* Fondo blanco para resaltar mejor el contenido */
+}
+
+.btn-primary 
+{
+    background-color: #199bad; /* Color del botón */
+    border: none;
+}
+
+.btn-primary:hover 
+{
+    background-color: #117a8b; /* Un tono ligeramente más oscuro para el hover */
+}
+
+/* Estilos generales para los campos de entrada */
+.form-floating .form-control
+{
+    border: 2px solid #bfbbbb; /* Borde gris constante */
+    color: #000; /* Texto en negro para garantizar visibilidad */
+    background-color: transparent; /* Fondo transparente para los inputs */
+}
+
+/* Estilos para los labels flotantes al estar en foco */
+.form-floating .form-control:focus ~ label,
+.form-floating .form-control:not(:placeholder-shown) ~ label,
+.form-floating .form-control:active ~ label 
+{
+    color: #199bad; /* Color para el texto del label en foco */
+    background-color: transparent; /* Hace el fondo del label transparente */
+    border-radius: 4px; /* Bordes redondeados para el label */
+    padding: 0 8px; /* Padding horizontal para el label */
+    transform: scale(0.85) translateY(-3px) translateX(0.1rem); /* Ajusta la posición y tamaño del label */
+}
+
+/* Mantener la transición suave en los labels */
+.form-floating label 
+{
+    transition: all 0.2s ease-in-out;
+    padding-left: 8px;
+    padding-right: 10px;
+    color: #000; /* Color del texto del label para garantizar visibilidad */
+}
+
+/* Ajuste del color del borde cuando el campo está en foco */
+.form-floating .form-control:focus,
+.form-floating .form-control:active
+{
+    border-color: #199bad; /* Cambia el color del borde al enfocar al color principal del tema */
+    box-shadow: 0 0 0 0.25rem rgba(25, 155, 173, 0.25); /* Sombra suave con el color del tema */
+}

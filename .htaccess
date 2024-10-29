@@ -1,0 +1,5 @@
+RewriteEngine On
+# Reescribe las URLs para acceder directamente sin parámetros visibles.
+RewriteRule ^Register.php$ index.php?controller=register&action=showRegistrationForm [L,NC,QSA]
+RewriteRule ^Login.php$ index.php?controller=login&action=showLoginForm [L,NC,QSA]
+RewriteRule ^DashboardAdmin.php$ index.php?controller=user&action=dashboardAdmin [L,NC,QSA]

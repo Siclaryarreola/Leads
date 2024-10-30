@@ -16,7 +16,8 @@ $_SESSION['ultimo_tiempo_actividad'] = time();
 $action = $_GET['action'] ?? 'showLoginForm'; // Define acción por defecto
 $controllerName = $_GET['controller'] ?? 'login'; // Controlador por defecto
 
-switch ($controllerName) {
+switch ($controllerName) 
+{
     case 'login':
         $controller = new LoginController();
         break;

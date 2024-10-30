@@ -1,14 +1,7 @@
 <?php 
 $activePage = 'dashboard';
 include('components/header.php');
-if($user['rol'] == 1)
-{
 
-}
-else
-{
-header('Location: ../login.php');
-}
 ?>
 
 <main class="container mt-5">

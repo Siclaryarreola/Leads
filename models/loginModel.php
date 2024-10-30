@@ -14,7 +14,7 @@ class LoginModel
     public function getUserByEmailAndPassword($email, $password) 
     {
         //consulta que trae los datos del usuario necesarios para el inicio de sesion 
-        $sql = "SELECT id, nombre, correo, contraseña, rol, intentos_fallidos, ultimo_intento FROM usuarios WHERE correo = ?";
+        $sql = "SELECT id, nombre, correo, contraseña, rol, puesto, sucursal, estado intentos_fallidos, ultimo_intento FROM usuarios WHERE correo = ?";
         $stmt = $this->db->prepare($sql);
         if (!$stmt) 
         {
@@ -50,7 +50,7 @@ class LoginModel
             } 
             else 
             {
-                //los intentos se agregan al contyadior
+                //los intentos se agregan al contador
                 $this->incrementFailedAttempts($email);  
             }
         }

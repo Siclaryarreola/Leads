@@ -1,5 +1,5 @@
 <?php
-require_once('config/database.php'); //ruta a la configuracon de la base de datos
+require_once('config/database.php'); // Ruta a la configuración de la base de datos
 
 class RegisterModel 
 {
@@ -10,26 +10,60 @@ class RegisterModel
         $this->db = Database::getInstance()->getConnection();
     }
 
-    //los parametros de la funcion
-    public function createUser($name, $email, $password) 
+    // Función para crear un usuario con los datos de nombre, email, contraseña, puesto y sucursal
+    public function createUser($name, $email, $password, $puesto, $sucursal) 
     {
-        //hashea la contraseña para almacenarla en la bs
+        // Hashea la contraseña para almacenarla de manera segura
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        //agrega el nuevo usuaro a la tabla usuarios
-        $sql = "INSERT INTO usuarios (nombre, correo, contraseña, rol) VALUES (?, ?, ?, 0)";
+
+        // Inserta el nuevo usuario en la tabla usuarios
+        $sql = "INSERT INTO usuarios (nombre, correo, contraseña, rol, puesto, sucursal) VALUES (?, ?, ?, 0, ?, ?)";
         $stmt = $this->db->prepare($sql);
-        if (!$stmt)
-        {
+
+        if (!$stmt) {
             return false;
         }
-        //tipo de dato 
-        $stmt->bind_param("sss", $name, $email, $hashedPassword);
+
+        // Vincula los parámetros a la consulta SQL
+        $stmt->bind_param("sssss", $name, $email, $hashedPassword, $puesto, $sucursal);
         $stmt->execute();
-        if ($stmt->affected_rows === 1) 
-        {
-            //retorna el id de la fila que se actualizo
+
+        // Verifica si se insertó correctamente
+        if ($stmt->affected_rows === 1) {
             return $this->db->insert_id;
         }
         return false;
+    }
+
+    // Función para obtener todas las sucursales desde la tabla `sucursales`
+    public function getSucursales() 
+    {
+        $sucursales = [];
+        $sql = "SELECT id, nombre FROM sucursales"; // Cambiado a `sucursales`
+        $result = $this->db->query($sql);
+
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $sucursales[] = $row;
+            }
+        }
+        
+        return $sucursales;
+    }
+
+    // Función para obtener todos los puestos desde la tabla `puestos`
+    public function getPuestos() 
+    {
+        $puestos = [];
+        $sql = "SELECT id, nombre FROM puestos"; // Cambiado a `puestos`
+        $result = $this->db->query($sql);
+
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $puestos[] = $row;
+            }
+        }
+
+        return $puestos;
     }
 }

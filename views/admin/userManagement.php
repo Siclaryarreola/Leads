@@ -8,17 +8,24 @@ $db = Database::getInstance()->getConnection();
 
 // Consulta con JOINs para obtener datos de las tablas `usuarios`, `detalleusuarios`, y `roles`
 $query = "
-    -- selecciona de la tabla usuarios nombre, correo y rol
-    SELECT usuarios.nombre, 
-           usuarios.correo, 
-           roles.rol AS rol,  -- Aquí usamos roles.rol para evitar ambigüedad
-           -- Selecciona de la tabla detalleusuarios estdo y ultimo_acceso
-           detalleusuarios.estado, 
-           detalleusuarios.ultimo_acceso
-    FROM usuarios 
-    LEFT JOIN detalleusuarios ON usuarios.detalle_id = detalleusuarios.id
-    LEFT JOIN roles ON usuarios.rol = roles.id
+    SELECT 
+        usuarios.nombre,                   -- Seleccionar el nombre del usuario desde la tabla usuarios
+        usuarios.correo,                   -- Seleccionar el correo electrónico del usuario desde la tabla usuarios
+        roles.rol AS rol,                  -- Obtener el nombre del rol desde la tabla roles, renombrado como 'rol'
+        usuarios.estado,                   -- Obtener el estado del usuario directamente desde la tabla usuarios (Ej.: Activo, Inactivo, Bloqueado)
+        detalleusuarios.ultimo_acceso,     -- Obtener la fecha y hora del último acceso del usuario desde la tabla detalleusuarios
+        sucursales.sucursal AS sucursal,       -- Obtener el nombre de la sucursal desde la tabla sucursal
+        puestos.puesto AS puesto           -- Obtener el nombre del puesto desde la tabla puestos
+    FROM 
+        usuarios
+    -- Relacionar la tabla usuarios con detalleusuarios usando detalle_id de usuarios y id de detalleusuarios
+    LEFT JOIN detalleusuarios ON usuarios.id = detalleusuarios.id
+    LEFT JOIN roles ON usuarios.rol = roles.id -- Relacionar la tabla usuarios con roles usando rol de usuarios y id de roles para obtener el nombre del rol
+    LEFT JOIN sucursales ON usuarios.sucursal = sucursales.id -- Relacionar la tabla usuarios con sucursal usando sucursal de usuarios y id de sucursal para obtener el nombre de la sucursal
+    LEFT JOIN puestos ON usuarios.puesto = puestos.id  -- Relacionar la tabla usuarios con puestos usando puesto de usuarios y id de puestos para obtener el nombre del puesto
 ";
+
+
 $result = $db->query($query);
 
 // Verificar si la consulta se ejecutó correctamente
@@ -29,8 +36,10 @@ if ($result === false) {
 
 // Procesar resultados
 $usuarios = [];
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
+if ($result->num_rows > 0) 
+{
+    while ($row = $result->fetch_assoc()) 
+    {
         $usuarios[] = $row;
     }
 }
@@ -52,6 +61,8 @@ if ($result->num_rows > 0) {
                 <th>Nombre de Usuario</th>
                 <th>Correo Electrónico</th>
                 <th>Rol</th>
+                <th>Puesto</th>
+                <th>Sucursal</th>
                 <th>Estado</th>
                 <th>Último Acceso</th>
                 <th>Acciones</th>
@@ -64,6 +75,8 @@ if ($result->num_rows > 0) {
                         <td><?php echo htmlspecialchars($usuario['nombre']); ?></td>
                         <td><?php echo htmlspecialchars($usuario['correo']); ?></td>
                         <td><?php echo htmlspecialchars($usuario['rol']); ?></td>
+                        <td><?php echo htmlspecialchars($usuario['puesto']); ?></td>
+                        <td><?php echo htmlspecialchars($usuario['sucursal']); ?></td>
                         <td><?php echo htmlspecialchars($usuario['estado']); ?></td>
                         <td><?php echo htmlspecialchars($usuario['ultimo_acceso']); ?></td>
                         <td>

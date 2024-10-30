@@ -12,7 +12,7 @@ class SessionController
     //funcion de tiempo de la sesion
     private static function checkSessionTimeout() 
     {
-        define('TIEMPO_MAXIMO_INACTIVIDAD', 180);  // 3 minutos 
+        define('TIEMPO_MAXIMO_INACTIVIDAD', 1800);  // 30 minutos 
 
         //verifica la variable sesion
         if (isset($_SESSION['ultimo_tiempo_actividad']) && (time() - $_SESSION['ultimo_tiempo_actividad'] > TIEMPO_MAXIMO_INACTIVIDAD)) 

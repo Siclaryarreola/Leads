@@ -39,7 +39,7 @@ class RegisterModel
     public function getSucursales() 
     {
         $sucursales = [];
-        $sql = "SELECT id, nombre FROM sucursales"; // Cambiado a `sucursales`
+        $sql = "SELECT id, sucursal FROM sucursales"; // Cambiado a `sucursales`
         $result = $this->db->query($sql);
 
         if ($result && $result->num_rows > 0) {
@@ -55,7 +55,7 @@ class RegisterModel
     public function getPuestos() 
     {
         $puestos = [];
-        $sql = "SELECT id, nombre FROM puestos"; // Cambiado a `puestos`
+        $sql = "SELECT id, puesto FROM puestos"; // Cambiado a `puestos`
         $result = $this->db->query($sql);
 
         if ($result && $result->num_rows > 0) {

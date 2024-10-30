@@ -13,45 +13,33 @@ class LoginModel
 
     public function getUserByEmailAndPassword($email, $password) 
     {
-        //consulta que trae los datos del usuario necesarios para el inicio de sesion 
-        $sql = "SELECT id, nombre, correo, contraseña, rol, puesto, sucursal, estado intentos_fallidos, ultimo_intento FROM usuarios WHERE correo = ?";
+        $sql = "SELECT id, nombre, correo, contraseña, rol, puesto, sucursal, estado, intentos_fallidos, ultimo_intento FROM usuarios WHERE correo = ?";
         $stmt = $this->db->prepare($sql);
-        if (!$stmt) 
-        {
+        if (!$stmt) {
             return false;
         }
-        //s es el tipo de dato que traera, la funcion enlaza los parametros
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
         
-        if ($user) 
-        {
-            //si los intentos fallidos son +3
-            if ($user['intentos_fallidos'] >= 3) 
-            {
-                //bloquea y tiene que esperar 30 minutos
-                $lastAttemptTime = new DateTime($user['ultimo_intento']);
-                $currentTime = new DateTime();
-                if ($currentTime->getTimestamp() - $lastAttemptTime->getTimestamp() < 1800) 
-                { // 1800 seconds = 30 minutes
-                    return 'blocked';
+        if ($user) {
+            if ($user['intentos_fallidos'] >= 3) {
+                // Verificar si ultimo_intento no es NULL antes de intentar crear DateTime
+                if ($user['ultimo_intento'] !== NULL) {
+                    $lastAttemptTime = new DateTime($user['ultimo_intento']);
+                    $currentTime = new DateTime();
+                    if (($currentTime->getTimestamp() - $lastAttemptTime->getTimestamp()) < 1800) { // 1800 seconds = 30 minutes
+                        return 'blocked';
+                    }
                 }
             }
-            
-            //verifica la contraseña ingresada con la de la base de datos
-            if (password_verify($password, $user['contraseña']))
-            {
-                //llama a la funcion y los intentos se reinician
-                $this->resetFailedAttempts($email); 
-                //retorna la informacion del usuario 
+
+            if (password_verify($password, $user['contraseña'])) {
+                $this->resetFailedAttempts($email);
                 return $user;
-            } 
-            else 
-            {
-                //los intentos se agregan al contador
-                $this->incrementFailedAttempts($email);  
+            } else {
+                $this->incrementFailedAttempts($email);
             }
         }
         return null;

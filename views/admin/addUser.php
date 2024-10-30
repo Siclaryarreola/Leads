@@ -21,7 +21,7 @@ include('components/header.php');
     <?php endif; ?>
 
     <!-- Formulario para agregar usuario -->
-    <form action="index.php?controller=register&action=register" method="POST">
+    <form action="index.php?controller=user&action=register" method="POST">
         <!-- Campo de nombre -->
         <div class="form-group">
             <label for="nombre">Nombre:</label>

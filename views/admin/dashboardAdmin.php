@@ -1,12 +1,21 @@
 <?php 
 $activePage = 'dashboard';
 include('components/header.php');
+if($user['rol'] == 1)
+{
+
+}
+else
+{
+header('Location: ../login.php');
+}
 ?>
 
 <main class="container mt-5">
     <div class="row align-items-center">
         <!-- Descripción del propósito del proyecto -->
         <div class="col-md-6">
+           
             <h2>Bienvenido al Portal de Administración de Cotizaciones</h2>
             <p>
                 Este portal está diseñado para gestionar las operaciones de ventas y usuarios del sistema.

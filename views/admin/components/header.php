@@ -34,6 +34,12 @@ $user = $_SESSION['user'];
                  <li class="nav-item <?php echo ($activePage == 'users') ? 'active' : ''; ?>">
                     <a class="nav-link" href="userManagement.php">Usuarios</a>
                 </li>
+                <li class="nav-item <?php echo ($activePage == 'users') ? 'active' : ''; ?>">
+                    <a class="nav-link" href="userManagement.php">Prospectos</a>
+                </li>
+                <li class="nav-item <?php echo ($activePage == 'users') ? 'active' : ''; ?>">
+                    <a class="nav-link" href="userManagement.php">Clientes</a>
+                </li>
                
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

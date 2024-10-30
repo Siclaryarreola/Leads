@@ -39,7 +39,7 @@
                             <select class="form-select" id="sucursal" name="sucursal" required>
                                 <option value="">Seleccione una Sucursal</option>
                                 <?php foreach ($sucursales as $sucursal): ?>
-                                    <option value="<?= $sucursal['id'] ?>"><?= htmlspecialchars($sucursal['nombre']) ?></option>
+                                    <option value="<?= $sucursal['id'] ?>"><?= htmlspecialchars($sucursal['sucursal']) ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <label for="sucursal">Sucursal</label>
@@ -50,7 +50,7 @@
                             <select class="form-select" id="puesto" name="puesto" required>
                                 <option value="">Seleccione un Puesto</option>
                                 <?php foreach ($puestos as $puesto): ?>
-                                    <option value="<?= $puesto['id'] ?>"><?= htmlspecialchars($puesto['nombre']) ?></option>
+                                    <option value="<?= $puesto['id'] ?>"><?= htmlspecialchars($puesto['puesto']) ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <label for="puesto">Puesto</label>

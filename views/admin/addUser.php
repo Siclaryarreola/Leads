@@ -1,11 +1,12 @@
 <?php 
-$activePage = 'profile';
+$activePage = 'addUser';
 include('components/header.php');
+require_once('../../models/userModel.php'); // Asegúrate de que la ruta es correcta
 ?>
 
 <main class="container mt-5">
     <h1>Agregar Usuario</h1>
-    <p>Añadir un usuario nuevo.</p>
+    <p>Añadir un usuario nuevo al sistema.</p>
     
     <!-- Mensajes de éxito o error -->
     <?php if (isset($_SESSION['success'])): ?>

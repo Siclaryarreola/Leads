@@ -11,8 +11,8 @@
 </head>
 <body class="bg-blue d-flex align-items-center justify-content-center min-vh-100">
 
-<div class="container d-flex justify-content-center align-items-center" style="max-width: 900px; height: auto;">
-    <div class="row shadow-lg rounded overflow-hidden" style="width: 100%; min-height: 60vh;"> <!-- Ajusta la altura aquí si es necesario -->
+<div class="container d-flex justify-content-center " style="max-width: 850px; height: auto;">
+    <div class="row shadow-lg rounded overflow-hidden" style="width: 103%; min-height: 60vh;"> <!-- Ajusta la altura aquí si es necesario -->
         
         <!-- Columna de imagen -->
         <div class="col-md-6 p-0">

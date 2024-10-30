@@ -15,7 +15,7 @@
             <div class="text-center mb-4">
                 <img src="public/images/logo-d.png" alt="Logotipo" style="height: 60px;">
             </div>
-            <div class="card shadow">
+            
                 <div class="card-body">
                     <h2 class="card-title text-center">Crear una cuenta</h2>
                     <p class="text-muted text-center">Por favor, rellena los siguientes datos para registrarte.</p>

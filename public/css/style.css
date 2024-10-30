@@ -9,15 +9,12 @@ body {
 .container {
     max-width: 900px;
     height: auto;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Sombra en el contenedor */
+    
     border-radius: 10px; /* Bordes redondeados */
     overflow: hidden; /* Asegura que el contenido no se salga */
 }
 
-/* Personalización de la sombra para el efecto hover */
-.container:hover {
-    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada al pasar el mouse */
-}
+
 
 .row {
     min-height: 60vh; /* Ajusta la altura del contenedor */
@@ -80,10 +77,6 @@ body {
     overflow: hidden; /* Asegura que el contenido no se salga */
 }
 
-/* Personalización de la sombra para el efecto hover */
-.container:hover {
-    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada al pasar el mouse */
-}
 
 .row {
     min-height: 60vh; /* Ajusta la altura del contenedor */

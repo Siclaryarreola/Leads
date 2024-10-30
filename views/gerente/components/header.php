@@ -11,7 +11,7 @@ $user = $_SESSION['user'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio - Usuarios</title>
+    <title>Inicio - Gerentes</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../public/css/styleDashboard.css">
     <link rel="icon" href="../../public/images/favico.png" type="image/x-icon">

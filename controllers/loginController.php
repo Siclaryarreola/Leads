@@ -34,7 +34,7 @@ class LoginController {
             }
         }
     }
-
+//Redirecciona a la vista correspondiente segun el rol 
     private function redirectUserBasedOnRole($role) {
         switch ($role) {
             case 1:

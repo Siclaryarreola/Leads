@@ -3,7 +3,8 @@ require_once('../../controllers/SessionController.php');
 SessionController::initSession();
 SessionController::authenticate();
 
-$user = $_SESSION['user'];
+$user = $_SESSION['user'] ?? ['nombre' => 'Invitado'];
+
 ?>
 
 <!DOCTYPE html>
@@ -28,22 +29,21 @@ $user = $_SESSION['user'];
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
-            <li class="nav-item <?php echo ($activePage == 'dashboard') ? 'active' : ''; ?>">
+                <li class="nav-item <?php echo ($activePage == 'dashboard') ? 'active' : ''; ?>">
                     <a class="nav-link" href="dashboardAdmin.php">Inicio</a>
                 </li>
-                 <li class="nav-item <?php echo ($activePage == 'users') ? 'active' : ''; ?>">
+                <li class="nav-item <?php echo ($activePage == 'users') ? 'active' : ''; ?>">
                     <a class="nav-link" href="userManagement.php">Usuarios</a>
                 </li>
-                <li class="nav-item <?php echo ($activePage == 'users') ? 'active' : ''; ?>">
-                    <a class="nav-link" href="userManagement.php">Prospectos</a>
+                <li class="nav-item <?php echo ($activePage == 'leadsManagement') ? 'active' : ''; ?>">
+                    <a class="nav-link" href="leadsManagement.php">Leads</a>
                 </li>
-                <li class="nav-item <?php echo ($activePage == 'users') ? 'active' : ''; ?>">
-                    <a class="nav-link" href="userManagement.php">Clientes</a>
+                <li class="nav-item <?php echo ($activePage == 'contactos') ? 'active' : ''; ?>">
+                    <a class="nav-link" href="contactosManagement.php">Contactos</a>
                 </li>
-               
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Bienvenido, <?php echo htmlspecialchars($user['nombre']); ?>
+                        Bienvenido, <?php echo htmlspecialchars($user['nombre']); ?>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="userProfile.php">Mi Perfil</a>
@@ -55,7 +55,7 @@ $user = $_SESSION['user'];
     </div>
 </header>
 <!-- Form hidden for logout -->
-<form id="logout-form" action="../../controllers/logout.php" method="POST" style="display:none;"></form>
+<form id="logout-form" action="../../controllers/logout.php" method="POST" style="display:flex;"></form>
 
 <!-- Scripts necesarios para Bootstrap -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

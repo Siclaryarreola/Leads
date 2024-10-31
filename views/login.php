@@ -42,7 +42,7 @@
                             <input class="form-check-input" type="checkbox" id="recuerdame">
                             <label class="form-check-label" for="recuerdame">Recuérdame</label>
                         </div>
-                        <a href="#" class="text-decoration-none">Olvidé mi contraseña</a>
+                        <a href="views/forgotPass.php" class="text-decoration-none">Olvidé mi contraseña</a>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">INGRESAR</button>
                 </form>

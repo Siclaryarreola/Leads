@@ -31,6 +31,12 @@ $user = $_SESSION['user'];
                 <li class="nav-item <?php echo ($activePage == 'dashboard') ? 'active' : ''; ?>">
                     <a class="nav-link" href="dashboarGerente.php">Inicio</a>
                 </li>
+                <li class="nav-item <?php echo ($activePage == 'leads') ? 'active' : ''; ?>">
+                    <a class="nav-link" href="leadsManagement.php">Leads</a>
+                </li>
+                <li class="nav-item <?php echo ($activePage == 'Contactos') ? 'active' : ''; ?>">
+                    <a class="nav-link" href="contactosManagement.php">Contactos</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Bienvenido, <?php echo htmlspecialchars($user['nombre']); ?>

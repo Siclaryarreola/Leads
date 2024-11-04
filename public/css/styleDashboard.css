@@ -1,5 +1,4 @@
-body 
-{
+body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
@@ -7,10 +6,10 @@ body
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: #f4f4f4; /* Agrega un color de fondo */
 }
 
-header 
-{
+header {
     background-color: #343a40;
     color: white;
     padding: 0 20px;
@@ -21,19 +20,16 @@ header
     box-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
-header .logo img 
-{
+header .logo img {
     height: 100%;
 }
 
-nav 
-{
+nav {
     display: flex;
     align-items: center;
 }
 
-nav a, .dropbtn 
-{
+nav a, .dropbtn {
     color: white;
     text-decoration: none;
     margin-left: 20px;
@@ -45,19 +41,16 @@ nav a, .dropbtn
     transition: background-color 0.3s;
 }
 
-nav a:hover, .dropbtn:hover 
-{
+nav a:hover, .dropbtn:hover {
     background-color: #17a2b8;
 }
 
-.dropdown 
-{
+.dropdown {
     position: relative;
     display: inline-block;
 }
 
-.dropdown-content 
-{
+.dropdown-content {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
@@ -66,8 +59,7 @@ nav a:hover, .dropbtn:hover
     z-index: 1;
 }
 
-.dropdown-content a 
-{
+.dropdown-content a {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
@@ -76,13 +68,20 @@ nav a:hover, .dropbtn:hover
 
 .dropdown-content a:hover {background-color: #f1f1f1}
 
-.dropdown:hover .dropdown-content 
-{
+.dropdown:hover .dropdown-content {
     display: block;
 }
 
-main 
-{
+main {
     flex: 1;
     padding: 20px;
-    background-color: #f4f4f4;
+    width: 100%; /* Asegura que main ocupe todo el ancho disponible */
+}
+
+footer {
+    padding: 10px 20px;
+    text-align: center;
+    background-color: #343a40;
+    color: white;
+    clear: both; /* Asegura que el footer se mantenga en la parte inferior */
+}

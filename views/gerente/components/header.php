@@ -29,13 +29,13 @@ $user = $_SESSION['user'];
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item <?php echo ($activePage == 'dashboard') ? 'active' : ''; ?>">
-                    <a class="nav-link" href="dashboarGerente.php">Inicio</a>
+                    <a class="nav-link" href="dashboardGerente.php">Inicio</a>
                 </li>
                 <li class="nav-item <?php echo ($activePage == 'leads') ? 'active' : ''; ?>">
-                    <a class="nav-link" href="leadsManagement.php">Leads</a>
+                    <a class="nav-link" href="GerenteLeads.php">Leads</a>
                 </li>
                 <li class="nav-item <?php echo ($activePage == 'Contactos') ? 'active' : ''; ?>">
-                    <a class="nav-link" href="contactosManagement.php">Contactos</a>
+                    <!--a class="nav-link" href="contactosManagement.php">Contactos</a-->
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

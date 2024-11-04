@@ -1,10 +1,11 @@
-<?php include('components/header.php'); ?>
+<?php 
+$activePage = 'leads';
+include('components/header.php'); ?>
 
 <!-- Incluir CSS de DataTables y Bootstrap -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
 
 <!-- Incluir jQuery y DataTables -->
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"></script>

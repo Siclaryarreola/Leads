@@ -6,7 +6,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #f4f4f4; /* Agrega un color de fondo */
+    background-color: #f4f4f4; /* Fondo general */
 }
 
 header {
@@ -17,7 +17,24 @@ header {
     justify-content: space-between;
     align-items: center;
     height: 60px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+    width: 100%; /* Asegura que main ocupe todo el ancho disponible */
+    margin-top: 10px; /* Espaciado desde el header */
+}
+
+.btn-primary {
+    background-color: #199bad;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #117a8b;
 }
 
 header .logo img {
@@ -70,12 +87,6 @@ nav a:hover, .dropbtn:hover {
 
 .dropdown:hover .dropdown-content {
     display: block;
-}
-
-main {
-    flex: 1;
-    padding: 20px;
-    width: 100%; /* Asegura que main ocupe todo el ancho disponible */
 }
 
 footer {

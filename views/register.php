@@ -35,10 +35,10 @@
                             <label for="password">Contraseña</label>
                         </div>
 
-                        <!-- Selector de Sucursal -->
+                      <!-- Selector de Sucursal -->
                         <div class="form-floating mb-3">
                             <select class="form-select" id="sucursal" name="sucursal" required>
-                                <option value="">Seleccione una Sucursal</option>
+                                <option value="" disabled selected hidden>Seleccione una Sucursal</option>
                                 <?php foreach ($sucursales as $sucursal): ?>
                                     <option value="<?= $sucursal['id'] ?>"><?= htmlspecialchars($sucursal['sucursal']) ?></option>
                                 <?php endforeach; ?>
@@ -49,7 +49,7 @@
                         <!-- Selector de Puesto -->
                         <div class="form-floating mb-3">
                             <select class="form-select" id="puesto" name="puesto" required>
-                                <option value="">Seleccione un Puesto</option>
+                                <option value="" disabled selected hidden>Seleccione un Puesto</option>
                                 <?php foreach ($puestos as $puesto): ?>
                                     <option value="<?= $puesto['id'] ?>"><?= htmlspecialchars($puesto['puesto']) ?></option>
                                 <?php endforeach; ?>

@@ -1,7 +1,7 @@
 <?php
-require_once('../../controllers/SessionController.php');
-SessionController::initSession();
-SessionController::authenticate();
+require_once('../../controllers/SessionManager.php');
+SessionManager::initSession();
+SessionManager::authenticate();
 
 $user = $_SESSION['user'];
 ?>
@@ -54,6 +54,6 @@ $user = $_SESSION['user'];
 <form id="logout-form" action="../../controllers/logout.php" method="POST" style="display:none;"></form>
 
 <!-- Scripts necesarios para Bootstrap -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -1,6 +1,11 @@
 <?php 
 $activePage = 'leads';
-include('components/header.php'); ?>
+include('components/header.php'); 
+require_once('../../controllers/leadController.php');
+
+$leadController = new LeadsController();
+$leads = $leadController->index();
+?>
 
 <!-- Incluir CSS de DataTables y Bootstrap -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
@@ -47,7 +52,32 @@ $(document).ready(function() {
             </tr>
         </thead>
         <tbody>
-            <!-- Datos dinámicos de los leads -->
+            <?php foreach ($leads as $lead): ?>
+                <tr>
+                    <td><?= htmlspecialchars($lead['empresa'] ?? 'N/D') ?></td>
+                    <td><?= htmlspecialchars($lead['localidad'] ?? 'N/D') ?></td>
+                    <td><?= htmlspecialchars($lead['giro'] ?? 'N/D') ?></td>
+                    <td><?= htmlspecialchars($lead['estado'] ?? 'N/D') ?></td>
+                    <td><?= htmlspecialchars($lead['contacto'] ?? 'N/D') ?></td>
+                    <td><?= htmlspecialchars($lead['telefono'] ?? 'N/D') ?></td>
+                    <td><?= htmlspecialchars($lead['correo'] ?? 'N/D') ?></td>
+                    <td><?= htmlspecialchars($lead['fecha_prospeccion'] ?? 'N/D') ?></td>
+                    <td><?= htmlspecialchars($lead['cotizacion'] ?? 'N/D') ?></td>
+                    <td><?= htmlspecialchars($lead['notas'] ?? 'N/D') ?></td>
+                    <td>
+                        <?php if (!empty($lead['archivo'])): ?>
+                            <a href="<?= htmlspecialchars($lead['archivo']) ?>" target="_blank">Ver archivo</a>
+                        <?php else: ?>
+                            N/D
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <a href="viewLead.php?id=<?= $lead['id'] ?>" class="btn btn-info btn-sm">Detalle</a>
+                        <a href="editLead.php?id=<?= $lead['id'] ?>" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="deleteLead.php?id=<?= $lead['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que desea eliminar?');">Eliminar</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </main>

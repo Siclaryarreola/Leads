@@ -1,60 +1,35 @@
 /* Fondo del body */
 body {
     margin: 0;
-    background-color: #edf1f8; /* Ajusta según el diseño deseado */
-}
-
-/* Contenedor de la página Forgot Password */
-.container-forgot-password {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 40px;
-    background-color: #f0f2f5; /* Fondo de la página */
+    background-color: #edf1f8; /* Fondo claro */
 }
 
 /* Estilos del contenedor del formulario */
-.form-container {
-    background-color: white;
+.card-body {
     padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    width: 100%;
 }
 
-/* Título del formulario */
-h1 {
+h2 {
     color: #199bad;
-    text-align: center;
-    margin-bottom: 20px;
 }
 
-/* Botón de envío */
+.card {
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
 .btn-primary {
     background-color: #199bad;
     border: none;
-    transition: background-color 0.3s;
 }
 
 .btn-primary:hover {
     background-color: #117a8b;
 }
 
-/* Estilos del campo de entrada */
-.form-group label {
-    color: #000;
-    margin-bottom: 8px;
-}
-
-.form-control {
-    border: 2px solid #bfbbbb;
-    background-color: transparent;
-    padding: 10px;
-}
-
-.form-control:focus {
-    border-color: #199bad;
-    box-shadow: 0 0 0 0.25rem rgba(25, 155, 173, 0.25);
+/* Ajustar la imagen */
+img.img-fluid {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
 }

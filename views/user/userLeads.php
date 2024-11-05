@@ -1,10 +1,10 @@
 <?php 
 $activePage = 'leads';
 include('components/header.php'); 
-require_once('../../controllers/leadController.php');
+require_once('../../controllers/leadsController.php');
 
-$leadController = new LeadsController();
-$leads = $leadController->index();
+$leadsController = new LeadsController();
+$leads = $leadsController->index();
 ?>
 
 <!-- Incluir CSS de DataTables y Bootstrap -->

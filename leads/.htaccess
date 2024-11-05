@@ -1,0 +1,2 @@
+# Deny all attempts to access files directly
+Deny from all

@@ -1,5 +1,5 @@
 <?php
-require_once('../../config/database.php');
+require_once(__DIR__ . '/../config/database.php');
 
 class LeadModel {
     private $db;
@@ -12,16 +12,18 @@ class LeadModel {
         $query = "SELECT * FROM leads";
         $params = [];
         $conditions = [];
-
+    
         if (!empty($filters['usuario_id'])) {
             $conditions[] = "usuario_id = ?";
             $params[] = $filters['usuario_id'];
         }
-
+    
         if (!empty($conditions)) {
             $query .= " WHERE " . implode(" AND ", $conditions);
         }
-
+    
+        $query .= " ORDER BY fecha_prospeccion,empresa DESC"; // Asegura que los más recientes estén primero
+    
         $stmt = $this->db->prepare($query);
         if ($stmt) {
             if (!empty($params)) {
@@ -32,7 +34,7 @@ class LeadModel {
             return $result->fetch_all(MYSQLI_ASSOC);
         }
         return [];
-    }
+    }    
 
     public function addLead($data) {
         $stmt = $this->db->prepare("
@@ -40,8 +42,9 @@ class LeadModel {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
         if ($stmt) {
-            return $stmt->execute(array_values($data));
+            $stmt->bind_param("ssssssssssbss", ...array_values($data));
+            return $stmt->execute();
         }
         return false;
-    }
+    }    
 }

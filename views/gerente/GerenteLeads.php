@@ -66,11 +66,12 @@ $(document).ready(function() {
                     <td><?= htmlspecialchars($lead['notas'] ?? 'N/D') ?></td>
                     <td>
                         <?php if (!empty($lead['archivo'])): ?>
-                            <a href="/Leads/<?= htmlspecialchars($lead['archivo']) ?>" target="_blank" download>Descargar archivo</a>
+                            <a href="../../Leads/<?= htmlspecialchars($lead['archivo']) ?>" target="_blank" download="<?= htmlspecialchars($lead['archivo']) ?>">Descargar archivo</a>
                         <?php else: ?>
                             N/D
                         <?php endif; ?>
                     </td>
+
                     <td>
                         <a href="viewLead.php?id=<?= $lead['id'] ?>" class="btn btn-info btn-sm">Detalle</a>
                         <a href="editLead.php?id=<?= $lead['id'] ?>" class="btn btn-warning btn-sm">Editar</a>

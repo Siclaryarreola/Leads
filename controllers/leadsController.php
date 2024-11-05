@@ -22,9 +22,7 @@ class LeadsController {
     public function addLead() {
         header('Content-Type: application/json');
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Manejo de carga de archivos
-            $archivo = $this->uploadFile($_FILES['archivo'] ?? null);
-    
+                
             // Crear el array de datos asegurándonos de que los valores opcionales tienen un valor por defecto adecuado.
             $data = [
                 'usuario_id' => $_SESSION['user']['id'],
@@ -38,7 +36,7 @@ class LeadsController {
                 'fecha_prospeccion' => $_POST['fecha_prospeccion'] ?? date('Y-m-d'),
                 'cotizacion' => $_POST['cotizacion'] ?? 'Sin cotización',
                 'notas' => $_POST['notas'] ?? 'Sin notas',
-                'archivo' => $archivo ?? 'No file',  // Cambiado para manejar correctamente el 'No file'
+                'archivo' => $this->uploadFile($_FILES['archivo'] ?? 'No archivo'),
                 'estatus' => $_POST['estatus'] ?? 'Pendiente'
             ];
     
@@ -62,16 +60,18 @@ class LeadsController {
         }
         return true; // Todos los campos son válidos
     }
-
     private function uploadFile($file) {
-        if ($file && $file['error'] == 0 && $file['type'] == 'application/pdf') {
-            $destination = "../../uploads/" . basename($file['name']);
+        if ($file['error'] == 0 && $file['type'] == 'application/pdf') {
+            $uploadPath = __DIR__ . '../../Leads/';  // Asegúrate de que este directorio existe y tiene permisos adecuados
+            $filename = uniqid() . '_' . basename($file['name']);
+            $destination = $uploadPath . $filename;
             if (move_uploaded_file($file['tmp_name'], $destination)) {
-                return $destination;
+                return $filename;  // Guarda y retorna el nombre del archivo
             }
         }
-        return null;
-    }    
+        return null;  // Retorna null si hay error
+    }
+    
 }
 
 // Instanciar y llamar al método directamente si es una petición directa

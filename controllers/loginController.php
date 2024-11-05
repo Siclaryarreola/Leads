@@ -14,6 +14,10 @@ class LoginController {
         require('views/login.php');
     }
 
+    public function showForgotForm() {
+        require('views/forgotPass.php');
+    }
+
     public function login() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['email']) && !empty($_POST['password'])) {
             $email = strtolower(trim($_POST['email'])); // Normalizar email a minúsculas

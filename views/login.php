@@ -42,7 +42,7 @@
                             <input class="form-check-input" type="checkbox" id="recuerdame">
                             <label class="form-check-label" for="recuerdame">Recuérdame</label>
                         </div>
-                        <a href="views/forgotPass.php" class="text-decoration-none">Olvidé mi contraseña</a>
+                        <a href="ForgotPassword.php" class="text-decoration-none">Olvidé mi contraseña</a>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">INGRESAR</button>
                 </form>
@@ -58,5 +58,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="public/js/loginValidation.js"></script>
 </body>
 </html>

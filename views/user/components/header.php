@@ -1,7 +1,7 @@
 <?php
-require_once('../../controllers/SessionController.php');
-SessionController::initSession();
-SessionController::authenticate();
+require_once('../../controllers/SessionManager.php');
+SessionManager::initSession();
+SessionManager::authenticate();
 $user = $_SESSION['user'];
 ?>
 
@@ -31,10 +31,10 @@ $user = $_SESSION['user'];
                     <a class="nav-link" href="dashboardUser.php">Inicio</a>
                 </li>
                 <li class="nav-item <?php echo ($activePage == 'leads') ? 'active' : ''; ?>">
-                    <a class="nav-link" href="leadsManagement.php">Leads</a>
+                    <a class="nav-link" href="userLeads.php">Leads</a>
                 </li>
                 <li class="nav-item <?php echo ($activePage == 'Contactos') ? 'active' : ''; ?>">
-                    <a class="nav-link" href="contactosManagement.php">Contactos</a>
+                    <!--a class="nav-link" href="contactosManagement.php">Contactos</a-->
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

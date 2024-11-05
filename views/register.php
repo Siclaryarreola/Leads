@@ -6,6 +6,7 @@
     <title>Portal Ventas - Registro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="public/css/style.css">
+    <link rel="icon" href="public/images/favico.png" type="image/x-icon">
 </head>
 <body class="bg-#edf1f8 d-flex align-items-center justify-content-center" style="height: 100vh;">
 
@@ -34,10 +35,10 @@
                             <label for="password">Contraseña</label>
                         </div>
 
-                        <!-- Selector de Sucursal -->
+                      <!-- Selector de Sucursal -->
                         <div class="form-floating mb-3">
                             <select class="form-select" id="sucursal" name="sucursal" required>
-                                <option value="">Seleccione una Sucursal</option>
+                                <option value="" disabled selected hidden>Seleccione una Sucursal</option>
                                 <?php foreach ($sucursales as $sucursal): ?>
                                     <option value="<?= $sucursal['id'] ?>"><?= htmlspecialchars($sucursal['sucursal']) ?></option>
                                 <?php endforeach; ?>
@@ -48,7 +49,7 @@
                         <!-- Selector de Puesto -->
                         <div class="form-floating mb-3">
                             <select class="form-select" id="puesto" name="puesto" required>
-                                <option value="">Seleccione un Puesto</option>
+                                <option value="" disabled selected hidden>Seleccione un Puesto</option>
                                 <?php foreach ($puestos as $puesto): ?>
                                     <option value="<?= $puesto['id'] ?>"><?= htmlspecialchars($puesto['puesto']) ?></option>
                                 <?php endforeach; ?>
@@ -70,5 +71,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="public/js/loginValidation.js"></script>
 </body>
 </html>

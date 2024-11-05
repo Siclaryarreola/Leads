@@ -1,7 +1,7 @@
 <?php
-require_once('../../controllers/SessionController.php');
-SessionController::initSession();
-SessionController::authenticate();
+require_once('../../controllers/SessionManager.php');
+SessionManager::initSession();
+SessionManager::authenticate();
 
 $user = $_SESSION['user'] ?? ['nombre' => 'Invitado'];
 

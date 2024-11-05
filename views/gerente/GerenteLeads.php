@@ -46,6 +46,7 @@ $(document).ready(function() {
                 <th>Correo</th>
                 <th>Fecha de Prospección</th>
                 <th>Cotización</th>
+                <th>Gerente Responsable</th>
                 <th>Notas</th>
                 <th>Archivo</th>
                 <th>Acciones</th>
@@ -63,6 +64,7 @@ $(document).ready(function() {
                     <td><?= htmlspecialchars($lead['correo'] ?? 'N/D') ?></td>
                     <td><?= htmlspecialchars($lead['fecha_prospeccion'] ?? 'N/D') ?></td>
                     <td><?= htmlspecialchars($lead['cotizacion'] ?? 'N/D') ?></td>
+                    <td><?= htmlspecialchars($lead['gerente_responsable'] ?? 'N/D') ?></td>
                     <td><?= htmlspecialchars($lead['notas'] ?? 'N/D') ?></td>
                     <td>
                         <?php if (!empty($lead['archivo'])): ?>
@@ -109,8 +111,8 @@ $(document).ready(function() {
                         <input type="text" class="form-control" id="giro" name="giro" >
                     </div>
                     <div class="form-group">
-                        <label for="estado">Estado</label>
-                        <input type="text" class="form-control" id="estado" name="estado" >
+                        <label for="sucursal">Sucursal</label>
+                        <input type="text" class="form-control" id="sucursal" name="sucursal" >
                     </div>
                     <div class="form-group">
                         <label for="contacto">Contacto</label>
@@ -125,6 +127,18 @@ $(document).ready(function() {
                         <input type="email" class="form-control" id="correo" name="correo" >
                     </div>
                     <div class="form-group">
+                        <label for="medioContacto">Medio de Contacto</label>
+                        <select class="form-control" id="mediocontacto" name="medioContacto" required>
+                            <option value="Expo">Expo</option>
+                            <option value="Llamada" selected>Llamada</option>
+                            <option value="WhatsApp">WhatsApp</option>
+                            <option value="Pagina web">Página Web</option>
+                            <option value="Generacion propia">Generación Propia</option>
+                            <option value="Generacion propia" selected>Seleccionar</option>
+                          
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="fecha_prospeccion">Fecha de Prospección</label>
                         <input type="date" class="form-control" id="fecha_prospeccion" name="fecha_prospeccion" >
                     </div>
@@ -132,6 +146,22 @@ $(document).ready(function() {
                         <label for="cotizacion">Cotización</label>
                         <textarea class="form-control" id="cotizacion" name="cotizacion" ></textarea>
                     </div>
+                    <!-- Lista desplegable de gerentes encargados de sucursal-->
+                    <div class="form-group">
+                        <label for="gerente">Gerente Resposable</label>
+                        <select class="form-control" id="gerente" name="gerente" required>
+                            <option value="Ana Velez"> Ana Velez - Saltillo / MTY</option>
+                            <option value="Llamada" selected>Bertha Diaz - Cd. Juárez</option>
+                            <option value="WhatsApp">Pamela Hernández - Durango</option>
+                            <option value="Pagina web">Iván Martínez - Puebla</option>
+                            <option value="Pagina web">Yaneth Gonzáles - Tijuana</option>
+                            <option value="Pagina web">Ajelet Sánchez - Chihuahua</option>
+                            <option value="Pagina web">Paola Martínez Queretaro / San Luis</option>
+                            <option value="Pagina web">Sin Gerente - León</option>
+                            <option value="Pagina web">Nadia Villanueva - Laguna</option>
+                            <option value="Generacion propia" selected>Seleccionar</option>
+                          
+                        </select>
                     <div class="form-group">
                         <label for="notas">Notas</label>
                         <textarea class="form-control" id="notas" name="notas" ></textarea>
@@ -143,13 +173,13 @@ $(document).ready(function() {
                             <option value="Prospecto" selected>Prospecto</option>
                             <option value="En seguimiento">En seguimiento</option>
                             <option value="Interesado">Interesado</option>
-                            <option value="Cotizacion" selected>Cotizacion</option>
+                            <option value="Cotizacion" selected>Cotizacion Enviada</option>
                             <option value="Contactado">Contactado</option>
                             <option value="No contesta">No contesta</option>
                             <option value="Pendiente" selected>Pendiente</option>
                             <option value="Inservible">Inservible</option>
                             <option value="Cerrado-Ganado">Cerrado-Ganado</option>
-                            <option value="Cerrado-Perdido" selected>Cerrado-Perdido</option>
+                            <option value="Seleccionar" selected>Seleccionar</option>
                         </select>
                     </div>
                     <div class="form-group">

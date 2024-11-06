@@ -1,5 +1,7 @@
 <?php
+
 require_once('../controllers/SessionManager.php');
+
 SessionManager::initSession();
 SessionManager::authenticate();
 
@@ -48,6 +50,8 @@ $user = $_SESSION['user'] ?? ['nombre' => 'Invitado'];
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="profile.php">Mi Perfil</a>
                         <a class="dropdown-item" href="../controllers/logout.php" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar Sesión</a>
+
+
                     </div>
                 </li>
             </ul>

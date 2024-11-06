@@ -5,27 +5,40 @@ class LeadModel {
     private $db;
 
     public function __construct() {
+        // Obtener la conexión a la base de datos
         $this->db = Database::getInstance()->getConnection();
     }
 
+    // Método para obtener leads junto con la información del cliente
     public function getLeads($filters = []) {
-        $query = "SELECT * FROM leads";
+        // Consulta que une leads con clienteLeads
+        $query = "
+            SELECT leads.*, clienteLeads.contacto, clienteLeads.correo, clienteLeads.telefono, clienteLeads.empresa,
+                   clienteLeads.giro, clienteLeads.localidad, clienteLeads.sucursal
+            FROM leads
+            LEFT JOIN clienteLeads ON leads.id_cliente = clienteLeads.id_clienteLead
+        ";
+        
         $params = [];
         $conditions = [];
     
+        // Agregar filtro por ID de usuario, si se proporciona
         if (!empty($filters['usuario_id'])) {
-            $conditions[] = "usuario_id = ?";
+            $conditions[] = "leads.usuario_id = ?";
             $params[] = $filters['usuario_id'];
         }
     
+        // Agregar condiciones a la consulta si hay filtros
         if (!empty($conditions)) {
             $query .= " WHERE " . implode(" AND ", $conditions);
         }
     
-        $query .= " ORDER BY fecha_prospeccion,empresa DESC"; // Asegura que los más recientes estén primero
+        // Ordenar resultados por fecha de prospección de forma descendente
+        $query .= " ORDER BY leads.fecha_prospeccion DESC";
     
         $stmt = $this->db->prepare($query);
         if ($stmt) {
+            // Vincular parámetros si existen
             if (!empty($params)) {
                 $stmt->bind_param(str_repeat('s', count($params)), ...$params);
             }
@@ -34,17 +47,27 @@ class LeadModel {
             return $result->fetch_all(MYSQLI_ASSOC);
         }
         return [];
-    }    
+    }
 
-    public function addLead($data) {
-        $stmt = $this->db->prepare("
-            INSERT INTO leads (usuario_id, empresa, localidad, giro, estado, contacto, telefono, correo, fecha_prospeccion, cotizacion, notas, archivo, estatus) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ");
+    // Método para obtener un lead específico por su ID
+    public function getLeadById($id) {
+        // Consulta para obtener un lead específico
+        $query = "
+            SELECT leads.*, clienteLeads.contacto, clienteLeads.correo, clienteLeads.telefono, clienteLeads.empresa,
+                   clienteLeads.giro, clienteLeads.localidad, clienteLeads.sucursal
+            FROM leads
+            LEFT JOIN clienteLeads ON leads.id_cliente = clienteLeads.id_clienteLead
+            WHERE leads.id_leads = ?
+        ";
+        
+        $stmt = $this->db->prepare($query);
         if ($stmt) {
-            $stmt->bind_param("ssssssssssbss", ...array_values($data));
-            return $stmt->execute();
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return $result->fetch_assoc();
         }
-        return false;
-    }    
+        return null;
+    }
 }
+?>

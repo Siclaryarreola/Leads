@@ -2,6 +2,7 @@
 $activePage = 'users';
 require_once('components/header.php');
 
+
 ?>
 
 <?php

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -45,7 +46,6 @@
                             </select>
                             <label for="sucursal">Sucursal</label>
                         </div>
-
                         <!-- Selector de Puesto -->
                         <div class="form-floating mb-3">
                             <select class="form-select" id="puesto" name="puesto" required>

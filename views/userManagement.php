@@ -1,13 +1,18 @@
 <?php 
 $activePage = 'users';
 require_once('components/header.php');
-require_once('../../models/userModel.php'); // Asegúrate de que la ruta es correcta
 
-// Crear instancia del modelo y obtener los usuarios
-$userModel = new UserModel();
-$usuarios = $userModel->getUsuarios();
 ?>
 
+<?php
+$rolPermitido = 1; 
+if ($user['rol'] != $rolPermitido) {
+    // Mostrar contenido de error 404
+    header("HTTP/1.1 404 Not Found");
+    include('404content.php'); // Asegúrate de que el path es correcto
+    exit(); // Detener la ejecución adicional del script
+}
+?>
 <main class="container mt-5">
     <h1>Gestión de Usuarios</h1>
     <p>Listado y gestión de usuarios del sistema.</p>
@@ -56,5 +61,6 @@ $usuarios = $userModel->getUsuarios();
         </tbody>
     </table>
 </main>
+
 
 <?php include('components/footer.php'); ?>

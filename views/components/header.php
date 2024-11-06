@@ -1,8 +1,10 @@
 <?php
-require_once('../../controllers/SessionManager.php');
+require_once('../controllers/SessionManager.php');
 SessionManager::initSession();
 SessionManager::authenticate();
-$user = $_SESSION['user'];
+
+$user = $_SESSION['user'] ?? ['nombre' => 'Invitado'];
+
 ?>
 
 <!DOCTYPE html>
@@ -10,17 +12,17 @@ $user = $_SESSION['user'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio - Usuarios</title>
+    <title>Portal Ventas</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../public/css/styleDashboard.css">
-    <link rel="icon" href="../../public/images/favico.png" type="image/x-icon">
-    <link rel="shortcut icon" href="../../public/images/favico.png" type="image/x-icon">
+    <link rel="stylesheet" href="../public/css/styleDashboard.css">
+    <link rel="icon" href="../public/images/favico.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../public/images/favico.png" type="image/x-icon">
 </head>
 <body>
 <header class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <img src="../../public/images/logo-d.png" alt="Company Logo" style="height: 50px;">
+            <img src="../public/images/logo-d.png" alt="Company Logo" style="height: 50px;">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -28,21 +30,24 @@ $user = $_SESSION['user'];
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item <?php echo ($activePage == 'dashboard') ? 'active' : ''; ?>">
-                    <a class="nav-link" href="dashboardUser.php">Inicio</a>
+                    <a class="nav-link" href="dashboard.php">Inicio</a>
                 </li>
+                <!-- Verificar si el usuario es administrador antes de mostrar la opción de gestión de usuarios -->
+                <?php if ($user['rol'] == 1): ?>
+                <li class="nav-item <?php echo ($activePage == 'users') ? 'active' : ''; ?>">
+                    <a class="nav-link" href="userManagement.php">Usuarios</a>
+                </li>
+                <?php endif; ?>
                 <li class="nav-item <?php echo ($activePage == 'leads') ? 'active' : ''; ?>">
-                    <a class="nav-link" href="userLeads.php">Leads</a>
-                </li>
-                <li class="nav-item <?php echo ($activePage == 'Contactos') ? 'active' : ''; ?>">
-                    <!--a class="nav-link" href="contactosManagement.php">Contactos</a-->
+                    <a class="nav-link" href="leads.php">Leads</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Bienvenido, <?php echo htmlspecialchars($user['nombre']); ?>
+                        Bienvenido, <?php echo htmlspecialchars($user['nombre']); ?>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="userProfile.php">Mi Perfil</a>
-                        <a class="dropdown-item" href="../../controllers/logout.php" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar Sesión</a>
+                        <a class="dropdown-item" href="profile.php">Mi Perfil</a>
+                        <a class="dropdown-item" href="../controllers/logout.php" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar Sesión</a>
                     </div>
                 </li>
             </ul>
@@ -50,9 +55,10 @@ $user = $_SESSION['user'];
     </div>
 </header>
 <!-- Form hidden for logout -->
-<form id="logout-form" action="../../controllers/logout.php" method="POST" style="display:none;"></form>
+<form id="logout-form" action="../controllers/logout.php" method="POST" style="display:none;"></form>
 
 <!-- Scripts necesarios para Bootstrap -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+

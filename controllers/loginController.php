@@ -38,23 +38,10 @@ class LoginController {
             }
         }
     }
-//Redirecciona a la vista correspondiente segun el rol 
-    private function redirectUserBasedOnRole($role) {
-        switch ($role) {
-            case 1:
-                header('Location: /Portal/views/admin/dashboardAdmin.php');
-                break;
-            case 2:
-                header('Location: /Portal/views/gerente/dashboardGerente.php');
-                break;
-            case 0:
-                header('Location: /Portal/views/user/dashboardUser.php');
-                break;
-            default:
-                $_SESSION['error'] = 'Acceso Denegado: Usuario desconocido.';
-                header('Location: index.php?action=showLoginForm');
-                break;
+        //Redirecciona a la vista correspondiente segun el rol 
+        private function redirectUserBasedOnRole($role) {
+            header('Location: /Portal/views/dashboard.php');
+            exit;
         }
-        exit;
-    }
+
 }

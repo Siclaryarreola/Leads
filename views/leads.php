@@ -1,7 +1,7 @@
 <?php 
 $activePage = 'leads';
 include('components/header.php'); 
-require_once(__DIR__ . '/../../controllers/leadsController.php');
+require_once(__DIR__ . '/../controllers/leadsController.php');
 
 $leadsController = new LeadsController();
 $leads = $leadsController->index();
@@ -20,7 +20,7 @@ $leads = $leadsController->index();
 $(document).ready(function() {
     $('#leadsTable').DataTable({
         "language": {
-            "url": "../../public/js/Spanish.json" 
+            "url": "../public/js/Spanish.json" 
         },
         "order": [[0, "asc"]]
     });
@@ -41,13 +41,9 @@ $(document).ready(function() {
                 <th>Localidad</th>
                 <th>Giro</th>
                 <th>Estado</th>
-                <th>Contacto</th>
-                <th>Teléfono</th>
-                <th>Correo</th>
                 <th>Fecha de Prospección</th>
                 <th>Cotización</th>
                 <th>Gerente Responsable</th>
-                <th>Notas</th>
                 <th>Archivo</th>
                 <th>Acciones</th>
             </tr>
@@ -59,16 +55,12 @@ $(document).ready(function() {
                     <td><?= htmlspecialchars($lead['localidad'] ?? 'N/D') ?></td>
                     <td><?= htmlspecialchars($lead['giro'] ?? 'N/D') ?></td>
                     <td><?= htmlspecialchars($lead['estado'] ?? 'N/D') ?></td>
-                    <td><?= htmlspecialchars($lead['contacto'] ?? 'N/D') ?></td>
-                    <td><?= htmlspecialchars($lead['telefono'] ?? 'N/D') ?></td>
-                    <td><?= htmlspecialchars($lead['correo'] ?? 'N/D') ?></td>
                     <td><?= htmlspecialchars($lead['fecha_prospeccion'] ?? 'N/D') ?></td>
                     <td><?= htmlspecialchars($lead['cotizacion'] ?? 'N/D') ?></td>
                     <td><?= htmlspecialchars($lead['gerente_responsable'] ?? 'N/D') ?></td>
-                    <td><?= htmlspecialchars($lead['notas'] ?? 'N/D') ?></td>
                     <td>
                         <?php if (!empty($lead['archivo'])): ?>
-                            <a href="../../Leads/<?= htmlspecialchars($lead['archivo']) ?>" target="_blank" download="<?= htmlspecialchars($lead['archivo']) ?>">Descargar archivo</a>
+                            <a href="../Leads/<?= htmlspecialchars($lead['archivo']) ?>" target="_blank" download="<?= htmlspecialchars($lead['archivo']) ?>">Descargar archivo</a>
                         <?php else: ?>
                             N/D
                         <?php endif; ?>

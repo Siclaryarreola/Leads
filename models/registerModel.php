@@ -8,10 +8,7 @@ class RegisterModel
     public function __construct() 
     {
         $this->db = Database::getInstance()->getConnection();
-        if (!$this->db) 
-        {
-            die("Error de conexión a la base de datos.");
-        }
+       
     }
 
     // Función para crear un usuario con los datos de nombre, email, contraseña, puesto y sucursal

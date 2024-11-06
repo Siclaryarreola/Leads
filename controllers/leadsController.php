@@ -1,39 +1,83 @@
 <?php
+// Incluir el modelo y otras dependencias necesarias
 require_once(__DIR__ . '/../models/leadsModel.php');
-session_start(); // Iniciar sesión para acceder a los datos del usuario
 
+// Clase del controlador
 class LeadsController {
     private $leadModel;
 
     public function __construct() {
-        // Crear una instancia del modelo
         $this->leadModel = new LeadModel();
     }
 
-    // Método para obtener la lista de leads
-    public function index($filters = []) {
-        // Obtener leads aplicando filtros opcionales
-        $leads = $this->leadModel->getLeads($filters);
-
-        // Obtener el rol del usuario desde la sesión
-        $rolUsuario = $_SESSION['user']['rol'] ?? null;
-
-        // Pasar los leads y el rol del usuario a la vista
-        include(__DIR__ . '/../views/leads.php');
+    public function index() {
+        $filters = [];
+        if ($_SESSION['user']['rol'] == 0) {
+            $filters['usuario_id'] = $_SESSION['user']['id'];
+        }
+        return $this->leadModel->getLeads($filters);
     }
 
-    // Método para obtener los detalles de un lead específico
-    public function getLeadDetails($id) {
-        // Obtener detalles de un lead por su ID
-        return $this->leadModel->getLeadById($id);
+    // Método para manejar la acción 'addLead'
+    public function addLead() {
+        header('Content-Type: application/json');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                
+            // Crear el array de datos asegurándonos de que los valores opcionales tienen un valor por defecto adecuado.
+            $data = [
+                'usuario_id' => $_SESSION['user']['id'],
+                'empresa' => $_POST['empresa'] ?? 'N/A',
+                'localidad' => $_POST['localidad'] ?? 'N/A',
+                'giro' => $_POST['giro'] ?? 'N/A',
+                'estado' => $_POST['estado'] ?? 'N/A',
+                'contacto' => $_POST['contacto'] ?? 'N/A',
+                'telefono' => $_POST['telefono'] ?? 'N/A',
+                'correo' => $_POST['correo'] ?? 'N/A@example.com',
+                'fecha_prospeccion' => $_POST['fecha_prospeccion'] ?? date('Y-m-d'),
+                'cotizacion' => $_POST['cotizacion'] ?? 'Sin cotización',
+                'notas' => $_POST['notas'] ?? 'Sin notas',
+                'archivo' => $this->uploadFile($_FILES['archivo'] ?? 'No archivo'),
+                'estatus' => $_POST['estatus'] ?? 'Pendiente'
+            ];
+    
+            // Intento de inserción en la base de datos
+            $result = $this->leadModel->addLead($data);
+            if ($result) {
+                echo json_encode(['success' => true, 'message' => 'Lead añadido correctamente']);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Error al añadir el lead']);
+            }
+            exit();
+        }
     }
+    
+    
+    private function validateData($data) {
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                return false; // Considera los datos inválidos si algún campo esencial está vacío o es N/A
+            }
+        }
+        return true; // Todos los campos son válidos
+    }
+    private function uploadFile($file) {
+        if ($file['error'] == 0 && $file['type'] == 'application/pdf') {
+            $uploadPath = __DIR__ . '../../Leads/';  // Asegúrate de que este directorio existe y tiene permisos adecuados
+            $filename = uniqid() . '_' . basename($file['name']);
+            $destination = $uploadPath . $filename;
+            if (move_uploaded_file($file['tmp_name'], $destination)) {
+                return $filename;  // Guarda y retorna el nombre del archivo
+            }
+        }
+        return null;  // Retorna null si hay error
+    }
+    
 }
 
-// Procesar la solicitud AJAX para obtener los detalles de un lead
-if (isset($_GET['action']) && $_GET['action'] === 'getLeadDetails' && isset($_GET['id'])) {
+// Instanciar y llamar al método directamente si es una petición directa
+if (isset($_GET['action']) && $_GET['action'] === 'addLead') {
+    session_start();  // Iniciar sesión si aún no está iniciada
     $controller = new LeadsController();
-    $leadDetails = $controller->getLeadDetails($_GET['id']);
-    echo json_encode($leadDetails);
-    exit;
+    $controller->addLead();
 }
 ?>

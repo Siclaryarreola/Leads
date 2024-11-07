@@ -1,5 +1,5 @@
 <?php
-require_once('config/database.php');//ruta a la conexion de la bd
+require_once('config/database.php');
 
 class LoginModel
 {
@@ -7,13 +7,19 @@ class LoginModel
 
     public function __construct() 
     {
-        //es igual a los datos de la bd
         $this->db = Database::getInstance()->getConnection();
     }
 
     public function getUserByEmailAndPassword($email, $password) 
     {
-        $sql = "SELECT id, nombre, correo, contraseña, rol, puesto, sucursal, estado, intentos_fallidos, ultimo_intento FROM usuarios WHERE correo = ?";
+        $sql = "
+            SELECT u.id, u.nombre, u.correo, u.contraseña, u.rol, u.puesto, u.sucursal, u.estado,
+                   d.intentos_fallidos, d.ultimo_intento, d.ultimo_acceso, d.reset_token, d.reset_expiry
+            FROM usuarios u
+            INNER JOIN detalleusuarios d ON u.detalle_id = d.id
+            WHERE u.correo = ?
+        ";
+        
         $stmt = $this->db->prepare($sql);
         if (!$stmt) {
             return false;
@@ -25,41 +31,57 @@ class LoginModel
         
         if ($user) {
             if ($user['intentos_fallidos'] >= 3) {
-                // Verificar si ultimo_intento no es NULL antes de intentar crear DateTime
                 if ($user['ultimo_intento'] !== NULL) {
                     $lastAttemptTime = new DateTime($user['ultimo_intento']);
                     $currentTime = new DateTime();
-                    if (($currentTime->getTimestamp() - $lastAttemptTime->getTimestamp()) < 1800) { // 1800 seconds = 30 minutes
+                    if (($currentTime->getTimestamp() - $lastAttemptTime->getTimestamp()) < 180) 
+                    { 
                         return 'blocked';
                     }
                 }
             }
 
-            if (password_verify($password, $user['contraseña'])) {
-                $this->resetFailedAttempts($email);
+            // Verificar la contraseña
+            if (password_verify($password, $user['contraseña'])) 
+            {
+                $this->resetFailedAttempts($user['id']);
+                $this->updateLastAccess($user['id']);
                 return $user;
             } else {
-                $this->incrementFailedAttempts($email);
+                $this->incrementFailedAttempts($user['id']);
+                // Depuración: Mostrar mensaje si la contraseña no coincide
+                error_log("Contraseña incorrecta para usuario: {$email}");
             }
+        } else {
+            // Depuración: Usuario no encontrado
+            error_log("Usuario no encontrado: {$email}");
         }
+        
         return null;
     }
 
-    private function incrementFailedAttempts($email) 
+    private function incrementFailedAttempts($userId) 
     {
-        //actualiza la columna de intentos fallidos
-        $sql = "UPDATE usuarios SET intentos_fallidos = intentos_fallidos + 1, ultimo_intento = NOW() WHERE correo = ?";
+        $sql = "UPDATE detalleusuarios SET intentos_fallidos = intentos_fallidos + 1, ultimo_intento = NOW() WHERE id = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("s", $email);
+        $stmt->bind_param("i", $userId);
         $stmt->execute();
     }
 
-    private function resetFailedAttempts($email)
+    private function resetFailedAttempts($userId)
     {
-        //actualiza los intentos fallidos a 0 cuando ya inicio sesoin 
-        $sql = "UPDATE usuarios SET intentos_fallidos = 0 WHERE correo = ?";
+        $sql = "UPDATE detalleusuarios SET intentos_fallidos = 0 WHERE id = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("s", $email);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+    }
+
+    private function updateLastAccess($userId)
+    {
+        $sql = "UPDATE detalleusuarios SET ultimo_acceso = NOW() WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $userId);
         $stmt->execute();
     }
 }
+

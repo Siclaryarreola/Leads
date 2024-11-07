@@ -1,5 +1,6 @@
 <?php
 require_once('../../config/database.php'); 
+
 class UserModel 
 {
     private $db;
@@ -21,11 +22,13 @@ class UserModel
                 roles.rol AS rol,
                 usuarios.estado,
                 detalleusuarios.ultimo_acceso,
+                detalleusuarios.intentos_fallidos,
+                detalleusuarios.ultimo_intento,
                 sucursales.sucursal AS sucursal,
                 puestos.puesto AS puesto
             FROM 
                 usuarios
-            LEFT JOIN detalleusuarios ON usuarios.id = detalleusuarios.id
+            LEFT JOIN detalleusuarios ON usuarios.detalle_id = detalleusuarios.id
             LEFT JOIN roles ON usuarios.rol = roles.id
             LEFT JOIN sucursales ON usuarios.sucursal = sucursales.id
             LEFT JOIN puestos ON usuarios.puesto = puestos.id
@@ -48,24 +51,57 @@ class UserModel
         return $usuarios;
     }
 
-
-
     // Obtiene el usuario por correo electrónico
     public function getUserByEmail($email) 
     {
-        $stmt = $this->db->prepare("SELECT * FROM usuarios WHERE correo = ?");
+        // Modificación para incluir la unión con detalleusuarios
+        $query = "
+            SELECT 
+                usuarios.id,
+                usuarios.nombre,
+                usuarios.correo,
+                usuarios.contraseña,
+                usuarios.rol,
+                usuarios.puesto,
+                usuarios.sucursal,
+                usuarios.estado,
+                detalleusuarios.intentos_fallidos,
+                detalleusuarios.ultimo_intento,
+                detalleusuarios.ultimo_acceso,
+                detalleusuarios.reset_token,
+                detalleusuarios.reset_expiry
+            FROM 
+                usuarios
+            LEFT JOIN detalleusuarios ON usuarios.detalle_id = detalleusuarios.id
+            WHERE 
+                usuarios.correo = ?
+        ";
+
+        $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
 
-    // Guarda el token de recuperación de contraseña y su expiración en la base de datos
+    // Guarda el token de recuperación de contraseña y su expiración en la tabla `detalleusuarios`
     public function savePasswordResetToken($email, $token) 
     {
         $expiry = time() + 3600; // Establece la expiración del token a 1 hora desde ahora
-        $stmt = $this->db->prepare("UPDATE usuarios SET reset_token = ?, reset_expiry = ? WHERE correo = ?");
-        $stmt->bind_param("sis", $token, $expiry, $email);
+        
+        // Consulta para actualizar en la tabla detalleusuarios en lugar de usuarios
+        $query = "
+            UPDATE 
+                detalleusuarios
+            SET 
+                reset_token = ?, 
+                reset_expiry = ?
+            WHERE 
+                id = (SELECT detalle_id FROM usuarios WHERE correo = ?)
+        ";
+        
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("iis", $token, $expiry, $email);
         $stmt->execute();
         return $stmt->affected_rows > 0;
     }
@@ -73,8 +109,26 @@ class UserModel
     // Verifica si el token de recuperación es válido y no ha expirado
     public function verifyPasswordResetToken($token) 
     {
-        $stmt = $this->db->prepare("SELECT * FROM usuarios WHERE reset_token = ? AND reset_expiry > ?");
         $current_time = time();
+        
+        // Consultar en `detalleusuarios` para verificar el token y la expiración
+        $query = "
+            SELECT 
+                usuarios.id, 
+                usuarios.nombre, 
+                usuarios.correo, 
+                detalleusuarios.reset_token, 
+                detalleusuarios.reset_expiry 
+            FROM 
+                detalleusuarios
+            JOIN 
+                usuarios ON detalleusuarios.id = usuarios.detalle_id
+            WHERE 
+                detalleusuarios.reset_token = ? 
+                AND detalleusuarios.reset_expiry > ?
+        ";
+        
+        $stmt = $this->db->prepare($query);
         $stmt->bind_param("si", $token, $current_time);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -84,8 +138,22 @@ class UserModel
     // Actualiza la contraseña del usuario y elimina el token de recuperación
     public function updatePassword($token, $hashed_password) 
     {
-        $stmt = $this->db->prepare("UPDATE usuarios SET contraseña = ?, reset_token = NULL, reset_expiry = NULL WHERE reset_token = ?");
-        $stmt->bind_param("ss", $hashed_password, $token);
+        // Actualizar en la tabla usuarios y limpiar token en detalleusuarios
+        $query = "
+            UPDATE 
+                usuarios 
+            JOIN 
+                detalleusuarios ON usuarios.detalle_id = detalleusuarios.id
+            SET 
+                usuarios.contraseña = ?, 
+                detalleusuarios.reset_token = NULL, 
+                detalleusuarios.reset_expiry = NULL
+            WHERE 
+                detalleusuarios.reset_token = ?
+        ";
+        
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("si", $hashed_password, $token); 
         $stmt->execute();
         return $stmt->affected_rows > 0;
     }

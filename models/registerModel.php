@@ -21,7 +21,8 @@ class RegisterModel
         $sql = "INSERT INTO usuarios (nombre, correo, contraseña, rol, puesto, sucursal) VALUES (?, ?, ?, 0, ?, ?)";
         $stmt = $this->db->prepare($sql);
 
-        if (!$stmt) {
+        if (!$stmt) 
+        {
             return false;
         }
 
@@ -30,7 +31,8 @@ class RegisterModel
         $stmt->execute();
 
         // Verifica si se insertó correctamente
-        if ($stmt->affected_rows === 1) {
+        if ($stmt->affected_rows === 1) 
+        {
             return $this->db->insert_id;
         }
         return false;
@@ -43,8 +45,10 @@ class RegisterModel
         $sql = "SELECT id, sucursal FROM sucursales ORDER BY sucursal ASC"; // Cambiado a `sucursales`
         $result = $this->db->query($sql);
 
-        if ($result && $result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
+        if ($result && $result->num_rows > 0) 
+        {
+            while ($row = $result->fetch_assoc()) 
+            {
                 $sucursales[] = $row;
             }
         }
@@ -59,8 +63,10 @@ class RegisterModel
         $sql = "SELECT id, puesto FROM puestos ORDER BY puesto ASC"; // Cambiado a `puestos`
         $result = $this->db->query($sql);
 
-        if ($result && $result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
+        if ($result && $result->num_rows > 0) 
+        {
+            while ($row = $result->fetch_assoc()) 
+            {
                 $puestos[] = $row;
             }
         }

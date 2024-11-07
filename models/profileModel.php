@@ -19,7 +19,8 @@ class ProfileModel {
     }
 
     // Método para actualizar la foto de perfil de un usuario
-    public function updateProfilePhoto($userId, $filePath) {
+    public function updateProfilePhoto($userId, $filePath) 
+    {
         $query = "UPDATE usuarios SET foto_perfil = :foto_perfil WHERE id = :id";
         $stmt = $this->db->prepare($query);
         return $stmt->execute(['foto_perfil' => $filePath, 'id' => $userId]);

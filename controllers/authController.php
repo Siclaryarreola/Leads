@@ -1,14 +1,17 @@
 <?php
-class authController {
+class authController 
+{
 
     // Enviar el correo electrónico con el enlace de recuperación de contraseña
-    public function sendPasswordReset() {
+    public function sendPasswordReset() 
+    {
         $email = trim($_POST['email']);
         $userModel = new UserModel();
         
         // Verificar si el correo está registrado
         $user = $userModel->getUserByEmail($email);
-        if (!$user) {
+        if (!$user) 
+        {
             $_SESSION['error'] = "No se encontró una cuenta con ese correo electrónico.";
             header('Location: index.php?controller=auth&action=forgotPassword');
             exit();
@@ -30,13 +33,15 @@ class authController {
     }
 
     // Verificar el token de recuperación y mostrar la página de restablecimiento de contraseña
-    public function resetPassword() {
+    public function resetPassword() 
+    {
         $token = $_GET['token'] ?? '';
         $userModel = new UserModel();
         
         // Verificar si el token es válido y no ha expirado
         $user = $userModel->verifyPasswordResetToken($token);
-        if (!$user) {
+        if (!$user) 
+        {
             echo "<p class='text-center text-danger'>Error: Token no válido o ha expirado.</p>";
             exit();
         }
@@ -46,13 +51,15 @@ class authController {
     }
 
     // Actualizar la contraseña después de verificar el token
-    public function updatePassword() {
+    public function updatePassword() 
+    {
         $token = $_POST['token'] ?? '';
         $newPassword = $_POST['new_password'];
         $confirmPassword = $_POST['confirm_password'];
 
         // Verificar que ambas contraseñas coincidan
-        if ($newPassword !== $confirmPassword) {
+        if ($newPassword !== $confirmPassword) 
+        {
             echo "<p class='text-center text-danger'>Error: Las contraseñas no coinciden.</p>";
             exit();
         }
@@ -61,7 +68,8 @@ class authController {
         $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
         $userModel = new UserModel();
 
-        if ($userModel->updatePassword($token, $hashedPassword)) {
+        if ($userModel->updatePassword($token, $hashedPassword)) 
+        {
             echo "<p class='text-center text-success'>Contraseña actualizada correctamente.</p>";
         } else {
             echo "<p class='text-center text-danger'>Error al actualizar la contraseña.</p>";

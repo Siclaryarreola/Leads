@@ -30,7 +30,7 @@
 
                 <form id="loginForm" action="index.php?controller=login&action=login" method="POST">
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="usuario@drg.mx" required>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="usuario@drg.mx" required autocomplete="username">
                         <label for="email">Correo Electrónico</label>
                     </div>
                     <div class="form-floating mb-3">

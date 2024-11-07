@@ -30,6 +30,10 @@ class RegisterModel
         $stmt->bind_param("sssss", $name, $email, $hashedPassword, $puesto, $sucursal);
         $stmt->execute();
 
+        $sqlDetail = "INSERT INTO detalleusuarios (ultimo_acceso, intentos_fallidos, ultimo_intento, reset_token, reset_expiry) VALUES (CURRENT_TIMESTAMP, 0, NULL, NULL, NULL)";
+        $stmtDetail = $this->db->prepare($sqlDetail);
+        $stmtDetail->execute();
+
         // Verifica si se insertó correctamente
         if ($stmt->affected_rows === 1) 
         {
